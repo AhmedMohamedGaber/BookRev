@@ -105,21 +105,11 @@
             </div>*@
 
             <div class="form-group  w-50  mb-2">
-                <label asp-for="Poster" class="form-label mt-4" enctype="multipart/form-data"></label>
-                <input type="file" class="form-control" asp-for="Poster" accept="image/*"/>
-                     @*  data-rule-extension="@FileSetting.AllowedExtensions.Replace(".", string.Empty)"
-                       data-msg-extension="Not allowed extension"
-                       data-rule-filesize="@FileSettings.MaxFileSizeInBytes"
-                       data-msg-filesize="Maximum allowed size is @FileSettings.MaxFileSizeInMB MB">
-                <small class="form-text text-muted">Only @FileSettings.AllowedExtensions files are allowed with max size @(FileSettings.MaxFileSizeInMB)MB.</small>
-               *@ <span asp-validation-for="Poster" class="text-danger d-block"></span>
+                <label asp-for="Image" class="form-label mt-4" enctype="multipart/form-data"></label>
+                <input type="file" class="form-control" asp-for="Image" accept="image/*"/>
+               <span asp-validation-for="Image" class="text-danger d-block"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="Poster" for="inputNumber" class="form-label mt-4"></label>
-                <input type="file" class="form-control" asp-for="Poster" />
-                <span asp-validation-for="Poster" class="text-bg-danger"></span>
-                
-            </div>*@
+    
            
             
                 <button type="submit" class="btn btn-success  mb-2" >

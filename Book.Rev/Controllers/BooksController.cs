@@ -1,10 +1,11 @@
-﻿using BookRev.Models;
+﻿using Book.Rev.Data;
 using BookRev.ViewModels;
 using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System.Drawing;
 
 namespace BookRev.Controllers
@@ -12,16 +13,19 @@ namespace BookRev.Controllers
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
+		private readonly IWebHostEnvironment webHostEnvironment;
 
-        
-        public BooksController(ApplicationDbContext context)
+
+		public BooksController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
-        }
-        // GET: BooksController
-        public ActionResult Index()
+			webHostEnvironment = hostEnvironment;
+
+		}
+		// GET: BooksController
+		public ActionResult Index()
         {
-            var books = _context.Books.ToList();
+            var books = _context.Books.Include(b=>b.Author).Include(b=>b.Publisher).Include(b=>b.Category).ToList();
             return View(books);
             
             
@@ -40,12 +44,7 @@ namespace BookRev.Controllers
         public IActionResult Create()
         {
 
-            var viewModel = new BookFormViewModel
-            {
-                Categories =_context.Categories.OrderBy(m => m.Name).ToList(),
-                Authors =_context.Authorities.OrderBy(m => m.Name).ToList(),
-                Publishers =_context.Publishers.OrderBy(m => m.Name).ToList()
-            };
+            var viewModel = getModel();
 
             return View(viewModel);
             
@@ -56,57 +55,33 @@ namespace BookRev.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(BookFormViewModel model)
         {
+            var BookModel = getModel();
             if (!ModelState.IsValid)
             {
-                model.Categories = _context.Categories.OrderBy(m => m.Name).ToList();
-                model.Authors = _context.Authorities.OrderBy(m => m.Name).ToList();
-                model.Publishers = _context.Publishers.OrderBy(m => m.Name).ToList();
-                return View(model);
-            }
-
-
-
-            if (!ModelState.IsValid)
-            {
-                model.Categories = _context.Categories.OrderBy(m => m.Name).ToList();
-                model.Authors = _context.Authorities.OrderBy(m => m.Name).ToList();
-                model.Publishers = _context.Publishers.OrderBy(m => m.Name).ToList();
-                return View(model);
+                return View(BookModel);
             }
 
             var files = Request.Form.Files;
 
             if (!files.Any())
             {
-                model.Categories = _context.Categories.OrderBy(m => m.Name).ToList();
-                model.Authors = _context.Authorities.OrderBy(m => m.Name).ToList();
-                model.Publishers = _context.Publishers.OrderBy(m => m.Name).ToList();
+               
                 ModelState.AddModelError("Poster", "Please Select book image!");
-                return View(model);
+                return View(BookModel);
             }
 
-            var poster = files.FirstOrDefault();
-            var allowExtenstions = new List<string>();
+            var image = files.FirstOrDefault();
+            var allowExtenstions = new List<string> { ".jpg", ".jpeg", ".png", ".ico", ".svg" };
 
-
-
-
-
-
-            if (!allowExtenstions.Contains(Path.GetExtension(poster.FileName).ToLower()))
+            if (!allowExtenstions.Contains(Path.GetExtension(image.FileName).ToLower()))
             {
-                model.Categories = _context.Categories.OrderBy(m => m.Name).ToList();
-                model.Authors = _context.Authorities.OrderBy(m => m.Name).ToList();
-                model.Publishers = _context.Publishers.OrderBy(m => m.Name).ToList();
-                ModelState.AddModelError("Poster", "Only .png, .jpg images ..!");
-                return View(model);
+                ModelState.AddModelError("Image", "Invalid extention only valid extentions"+String.Join(" , ",allowExtenstions));
+                return View(BookModel);
             }
-            using var dataStream = new MemoryStream();
-            poster.CopyToAsync(dataStream);
+            var ImageName = UploadedFile(model.Image);
 
-
-            var books = new Book
-            {
+			var books = new Models.Book
+			{
                 Title = model.Title,
                 CategoryId = model.CategoryId,
                 AuthorId = model.AuthorId,
@@ -114,31 +89,14 @@ namespace BookRev.Controllers
                 Year = model.Year,
                 Rate = model.Rate,
                 Description = model.Description,
-                Poster = dataStream.ToArray()
+                Image=ImageName
             };
             _context.Books.Add(books);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
 
-            //try
-            //{
-            //    emp.CreatedDate = DateTime.Now;
-            //    emp.UpdateDate = DateTime.Now;
-            //    emp.IsDeleted = false;
-            //    emp.IsVisable = true;
-
-            //    _myDBContext.Add<Employee>(emp);
-            //    _myDBContext.SaveChanges();
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //catch
-            //{
-            //    return View();
-            //}
-            //return RedirectToAction(nameof(Index));
+            
         }
-
-        // GET: BooksController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
@@ -179,5 +137,31 @@ namespace BookRev.Controllers
                 return View();
             }
         }
-    }
+
+        private BookFormViewModel getModel() {
+            var model = new BookFormViewModel() {
+				Categories = _context.Categories.OrderBy(m => m.Name).ToList(),
+				Authors = _context.Authorities.OrderBy(m => m.Name).ToList(),
+				Publishers = _context.Publishers.OrderBy(m => m.Name).ToList()
+			};
+        return model;
+        }
+
+		private string UploadedFile(IFormFile file)
+		{
+			string uniqueFileName = null;
+
+			if (file != null)
+			{
+				string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath,"images");
+				uniqueFileName = Guid.NewGuid().ToString() + "_" +file.FileName;
+				string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+				using (var fileStream = new FileStream(filePath, FileMode.Create))
+				{
+					file.CopyTo(fileStream);
+				}
+			}
+			return uniqueFileName;
+		}
+	}
 }

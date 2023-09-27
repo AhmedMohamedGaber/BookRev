@@ -16,10 +16,11 @@ namespace BookRev.ViewModels
         [Required, StringLength(2500)]
         public string Description { get; set; }
 
-        //[Display(Name = "Select image.....")]
-        public byte[]? Poster { get; set; }
+		[Required(ErrorMessage = "Please choose image")]
+		[Display(Name = "Picture")]
+		public IFormFile Image { get; set; }
 
-        [Display(Name ="Category")]
+		[Display(Name ="Category")]
         public byte CategoryId { get; set; }
 
         //public Category Category { get; set; }

@@ -1,13 +1,14 @@
-using BookRev.Models;
+using Book.Rev.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
-"data source=AHMED_MOHAMED\\TEST_1; database=BookRev;integrated security=true; trust server certificate=true"));
-
+    builder.Configuration.GetConnectionString("SqlCon")
+    )); 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -17,10 +17,11 @@ namespace BookRev.Models
         [Required,MaxLength(2500)]
         public string Description { get; set; }
 
-        [Required]
-        public byte[] Poster { get; set; }
 
-        public byte CategoryId { get; set; }
+		[Required(ErrorMessage = "Please choose  image")]
+		public string Image { get; set; }
+
+		public byte CategoryId { get; set; }
 
         public Category Category { get; set; }
 
