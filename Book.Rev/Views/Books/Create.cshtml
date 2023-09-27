@@ -1,0 +1,178 @@
+﻿@model BookFormViewModel
+
+@*@model BookRev.Models.Book*@
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+<hr />
+
+<h4>Book</h4>
+@*<section class="row justify-content-between">*@
+     
+<form  asp-action="Create" enctype="multipart/form-data">
+    <div class="row>
+     <div class="col-md-2">
+            <div class="form-group  w-50">
+                <label asp-for="Title" class="form-label mt-4"></label>
+                <input type="text" class="form-control" asp-for="Title" placeholder="Name">
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+           @* <div class="form-group">
+                <label class="text-muted" asp-for="Title"></label>
+                <input type="text" class="form-control" asp-for="Title" maxlength="250" />
+                <span asp-validation-for="Title" class="text-bg-danger"></span>
+            </div>*@
+
+            <div class="form-group  w-50">
+                <label asp-for="CategoryId" class="form-label mt-4"></label>
+                <select class="form-select" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories,"Id","Name"))"
+                        data-placeholder="Select a category" data-minimum-results-for-search="Infinity">
+                    <option></option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            @*<div class="form-group">
+                <label class ="text-muted" asp-for="CategoryId" ></label>
+                <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories,"Id","Name"))">
+                    <option></option>
+                </select>
+            </div>*@
+
+            <div class="form-group  w-50">
+                <label asp-for="AuthorId" class="form-label mt-4"></label>
+                <select class="form-select" asp-for="AuthorId" asp-items="@(new SelectList(Model.Authors,"Id","Name"))"
+                        data-placeholder="Select a category" data-minimum-results-for-search="Infinity">
+                    <option></option>
+                </select>
+                <span asp-validation-for="AuthorId" class="text-danger"></span>
+            </div>
+
+            @*<div class="form-group">
+                <label class="text-muted" asp-for="AuthorId"></label>
+                <select class="form-control" asp-for="AuthorId" asp-items="@(new SelectList(Model.Authors,"Id","Name"))">
+                    <option></option>
+                </select>
+            </div>*@
+
+            <div class="form-group  w-50">
+                <label asp-for="PublisherId" class="form-label mt-4"></label>
+                <select class="form-select" asp-for="PublisherId" asp-items="@(new SelectList(Model.Publishers,"Id","Name"))"
+                        data-placeholder="Select a category" data-minimum-results-for-search="Infinity">
+                    <option></option>
+                </select>
+                <span asp-validation-for="PublisherId" class="text-danger"></span>
+            </div>
+
+            @*<div class="form-group">
+                <label class="text-muted" asp-for="PublisherId"></label>
+                <select class="form-control" asp-for="PublisherId" asp-items="@(new SelectList(Model.Publishers,"Id","Name"))">
+                    <option></option>
+                </select>
+            </div>*@
+
+            <div class="form-group w-50">
+                <label class="text-muted" asp-for="Year"></label>
+                <input type="text" class="form-control" asp-for="Year" value="@(Model.Year>0 ? Model.Year:string.Empty)" />
+                <span asp-validation-for="Year" class="text-bg-danger"></span>
+            </div>
+
+            <div class="form-group w-50">
+                <label class="text-muted" asp-for="Rate"></label>
+                <input type="text" class="form-control" asp-for="Rate" value="@(Model.Rate>0 ? Model.Rate:string.Empty)"  />
+                <span asp-validation-for="Rate" class="text-bg-danger"></span>
+            </div>
+            <div class="form-group  w-50">
+                <label asp-for="Description" class="form-label mt-4"></label>
+                <textarea asp-for="Description" class="form-control" maxlength="2500" rows="5" placeholder="Description"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+@*
+            <div class="form-group mb-3">
+                <label class="text-muted" asp-for="Description"></label>
+                <textarea type="text" class="form-control" asp-for="Description" maxlength="2500" rows="5" ></textarea>
+                <span asp-validation-for="Description" class="text-bg-danger"></span>
+            </div>*@
+
+
+           @* <div class="custom-file">
+                <input type="file" class="custom-file-input" asp-for="Poster" />
+                <label class="custom-file-input" asp-for="Poster"></label>
+                <span asp-validation-for="Poster" class="text-bg-danger"></span>
+            </div>*@
+
+            <div class="form-group  w-50  mb-2">
+                <label asp-for="Poster" class="form-label mt-4" enctype="multipart/form-data"></label>
+                <input type="file" class="form-control" asp-for="Poster" accept="image/*"/>
+                     @*  data-rule-extension="@FileSetting.AllowedExtensions.Replace(".", string.Empty)"
+                       data-msg-extension="Not allowed extension"
+                       data-rule-filesize="@FileSettings.MaxFileSizeInBytes"
+                       data-msg-filesize="Maximum allowed size is @FileSettings.MaxFileSizeInMB MB">
+                <small class="form-text text-muted">Only @FileSettings.AllowedExtensions files are allowed with max size @(FileSettings.MaxFileSizeInMB)MB.</small>
+               *@ <span asp-validation-for="Poster" class="text-danger d-block"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="Poster" for="inputNumber" class="form-label mt-4"></label>
+                <input type="file" class="form-control" asp-for="Poster" />
+                <span asp-validation-for="Poster" class="text-bg-danger"></span>
+                
+            </div>*@
+           
+            
+                <button type="submit" class="btn btn-success  mb-2" >
+                    <i class="bi bi-bookmark-check-fill"></i>
+                    Add
+                </button>
+                </div>
+
+            <div class="col-md-6 d-flex justify-content-center pt-4 overflow-hidden">
+                <img class="cover-preview d-none" alt="Poster" />
+            </div>
+            <div>
+                <a asp-action="Index" class="btn btn-outline-dark"><i class="bi bi-arrow-return-left"></i>Back to List</a>
+            </div>
+            </div>
+            
+        </form>
+    
+
+
+      
+@*</section>*@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function(){
+            $('#Poster').on('change',function(){
+               var selectedFile = $(this).val().split('\\').pop();
+               $(this).siblings('lablel').text(selectedFile);
+
+
+               var posterCountainer = $('#poster-container');
+               var image=window.URL.createObjectURL(this.files[0]);
+
+
+               posterCountainer.removeClass('d-none');
+               posterCountainer.find('img').attr('src',image);
+            });
+
+            $('#Year').datepicker({
+                format:'yyyy',
+                viewMode:'years',
+                minViewMode:'years',
+                autoclose:true,
+                startDate: new Date('1000-01-01'),
+                endDate:new Date()
+
+            });
+        });
+    </script>
+}
