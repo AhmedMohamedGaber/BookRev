@@ -1,27 +1,44 @@
 ﻿using Book.Rev.Data;
+using BookRev.Models;
+using BookRev.ViewModels;
+using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using NToastNotify;
+using System.Runtime.Intrinsics.Arm;
 namespace BookRev.Controllers
 {
     public class PublisherController : Controller
     {
-        // GET: PublisherController
         private readonly ApplicationDbContext _context;
-        public PublisherController(ApplicationDbContext context)
+        private readonly IToastNotification _toastNotification;
+        private readonly IWebHostEnvironment webHostEnvironment;
+
+        public PublisherController(ApplicationDbContext context, IToastNotification toastNotification, IWebHostEnvironment hostEnvironment)
         {
-            _context = context;
+             _context=context;
+            _toastNotification = toastNotification;
+            webHostEnvironment = hostEnvironment;
+
         }
+
+        
+       
+        // GET: PublisherController
         public ActionResult Index()
         {
-            return View();
+            var pubs = _context.Publishers.ToList();
+            return View(pubs);
         }
 
         // GET: PublisherController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var pub = _context.Publishers.Where(a => a.Id == id).FirstOrDefault();
+            return View(pub);
         }
 
         // GET: PublisherController/Create
@@ -33,11 +50,16 @@ namespace BookRev.Controllers
         // POST: PublisherController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Models.Publisher pub)
         {
             try
             {
+                _context.Add<Models.Publisher>(pub);
+                _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Publisher Added Successfully");
+
                 return RedirectToAction(nameof(Index));
+
             }
             catch
             {
@@ -46,19 +68,25 @@ namespace BookRev.Controllers
         }
 
         // GET: PublisherController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int x)
         {
-            return View();
+            var pub = _context.Publishers.Where(a => a.Id == x).FirstOrDefault();
+            return View(pub);
         }
 
         // POST: PublisherController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Models.Publisher pub)
         {
             try
             {
+                _context.Update<Models.Publisher>(pub);
+                _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Publisher Updated Successfully");
+
                 return RedirectToAction(nameof(Index));
+
             }
             catch
             {
@@ -69,17 +97,23 @@ namespace BookRev.Controllers
         // GET: PublisherController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var pub = _context.Publishers.Where(a => a.Id == id).FirstOrDefault();
+            return View(pub);
         }
 
         // POST: PublisherController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(Models.Publisher pub)
         {
             try
             {
+                _context.Remove<Models.Publisher>(pub);
+                _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Publisher Removed Successfully");
+
                 return RedirectToAction(nameof(Index));
+
             }
             catch
             {

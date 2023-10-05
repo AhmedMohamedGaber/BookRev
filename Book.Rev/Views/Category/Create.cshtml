@@ -1,0 +1,43 @@
+﻿@model BookRev.Models.Category
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4 style="color:dimgray">Category</h4>
+<hr />
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Add Category</h5>
+        <!-- Floating Labels Form -->
+        <form class="row g-3" asp-action="Create" asp-controller="Category">
+
+
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input asp-for="Name" class="form-control" id="floatingName" placeholder="Your Name">
+                    <label for="floatingId">Name</label>
+                </div>
+            </div>
+           
+            
+            <div class="text-center">
+                @*                <button type="submit" value="Create" class="btn btn-primary">Create</button> *@
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-plus-square-fill"></i> Create
+                </button> |
+                <a asp-action="Index" class="btn btn-outline-dark"><i class="bi bi-arrow-left-circle-fill"></i>Back to List</a>
+
+            </div>
+        </form><!-- End floating Labels Form -->
+
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

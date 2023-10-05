@@ -1,0 +1,132 @@
+﻿@model BookRev.Models.Book
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<h1>Details</h1>
+
+
+
+<div class="row justify-content-between mt-60-px">
+    <div class="col-md-3 ">
+        <img src="/images/@Model.Image" class="img-thumbnail" title="@Model.Title" alt="@Model.Title" />
+            
+            </div>
+        
+
+            <div class ="col-md-7">
+                <div class="d-flex justify-content-between mt-3 mb-3">
+                    <h3 class="mt-9" >@Model.Title</h3>
+                    <span>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <span class"text-muted">@Model.Rate.ToString("0.0")</span>
+                    </span>
+                </div>
+                <span class="text-muted mr-3">
+            <i class="bi bi-calendar-check"></i>
+                    @Model.Year
+                </span>
+
+                <span class="text-muted ">
+            &nbsp
+            <i class="bi bi-journal-check"></i>
+             @Model.Category.Name
+                </span>
+        <span class="text-muted">
+            &nbsp
+            <i class=" bi bi-pencil"></i>
+            @Model.Author.Name
+        </span>
+        <span class="text-muted">
+            &nbsp
+            <i class="bi bi-cloud-upload"></i>
+            @Model.Publisher.Name
+        </span>
+        @{
+            bool ContainsArabic(string text)
+            {
+                foreach (char c in text)
+                {
+                    if (c >= 0x0600 && c <= 0x06FF)
+                    {
+                        return true;
+                    }
+                    else if (c >= 0x0750 && c <= 0x077F)
+                    {
+                        return true;
+                    }
+                    else if (c >= 0xFB50 && c <= 0xFDFF)
+                    {
+                        return true;
+                    }
+                    else if (c >= 0xFE70 && c <= 0xFEFF)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+        <p class="text-justify mt-3" style="direction: @(ContainsArabic(Model.Description) ? "rtl" : "ltr")">
+            @(Model.Description.Length > 2500 ? $"{Model.Description.Substring(0, 2500)}" : Model.Description)
+        </p>
+
+            </div>
+</div>
+
+<div>
+     
+    <a asp-action="Index" class="btn btn-outline-secondary mt-4"><i class="bi bi-arrow-return-left"></i>Back to List</a>
+</div>
+       @* <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Rate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Rate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+       
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CategoryId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AuthorId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AuthorId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PublisherId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PublisherId)
+        </dd>
+    </dl>
+</div>*@
+
+@*
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>*@

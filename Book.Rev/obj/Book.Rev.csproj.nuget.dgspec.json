@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "F:\\projectIti\\BookRev\\Book.Rev\\Book.Rev.csproj": {}
+    "C:\\Users\\elhmz\\source\\repos\\Book.Rev\\Book.Rev\\Book.Rev.csproj": {}
   },
   "projects": {
-    "F:\\projectIti\\BookRev\\Book.Rev\\Book.Rev.csproj": {
+    "C:\\Users\\elhmz\\source\\repos\\Book.Rev\\Book.Rev\\Book.Rev.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\projectIti\\BookRev\\Book.Rev\\Book.Rev.csproj",
+        "projectUniqueName": "C:\\Users\\elhmz\\source\\repos\\Book.Rev\\Book.Rev\\Book.Rev.csproj",
         "projectName": "Book.Rev",
-        "projectPath": "F:\\projectIti\\BookRev\\Book.Rev\\Book.Rev.csproj",
-        "packagesPath": "C:\\Users\\tiger\\.nuget\\packages\\",
-        "outputPath": "F:\\projectIti\\BookRev\\Book.Rev\\obj\\",
+        "projectPath": "C:\\Users\\elhmz\\source\\repos\\Book.Rev\\Book.Rev\\Book.Rev.csproj",
+        "packagesPath": "C:\\Users\\elhmz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\elhmz\\source\\repos\\Book.Rev\\Book.Rev\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\tiger\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\elhmz\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -27,6 +27,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -48,6 +49,10 @@
             "DocumentFormat.OpenXml": {
               "target": "Package",
               "version": "[3.0.0-beta0003, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.11, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -73,6 +78,10 @@
               "target": "Package",
               "version": "[7.0.9, )"
             },
+            "NToastNotify": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "bootstrap": {
               "target": "Package",
               "version": "[5.3.2, )"
@@ -97,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }

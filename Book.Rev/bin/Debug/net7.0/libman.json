@@ -161,5 +161,23 @@
         "css/bootstrap-datepicker.min.css"
       ]
     }
+  ,
+{
+  "provider": "cdnjs",
+  "library": "bootbox.js@6.0.0",
+  "destination": "wwwroot/lib/bootbox.js/",
+  "files": [
+    "bootbox.min.js"
   ]
+}
+,
+{
+  "provider": "cdnjs",
+  "library": "animate.css@4.1.1",
+  "destination": "wwwroot/lib/animate.css/",
+  "files": [
+    "animate.min.css"
+  ]
+}
+]
 }

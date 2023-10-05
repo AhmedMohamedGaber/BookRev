@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAxRWpK5+U8EiqADhb8IwuDgAAAAACAAAAAAAQZgAAAAEAACAAAAAWLlptK6yqdxpVFzvwfza6QHWTrJBNOj0duL0ZYhvo3wAAAAAOgAAAAAIAACAAAAAZuvbsqc52W2iOKmLWZ0KsQcLSZBWpAJoJv6vlWo/V3IAAAAATpFDnr9FhLB0cY0wfB1PBxM4d0XBC4NNwW9rsGxGcwjPbj/8Nk0TLRLWWR/GUZYNp7mf6pHskgU+umxNbkl0RbYGlNz/lLejR4N8haHATXqleu8TYwjSmV5nzfcxxOE2eQ7Me1vKlCp0h2N8OOr9rYDkX++0IhABpbq9WTxJog0AAAAAtT0pMu0w6qpoVGcKDhXCuGqErrlRe83JjOlELiKZ6ghiiMK2sr/f6kLMzpEPk1bkKCjV38TF1AULBI7f3nM4h</EncryptedPassword>
+    <History>True|2023-09-29T23:48:39.5568564Z;True|2023-09-29T16:11:07.9798783+03:00;True|2023-09-29T08:13:57.3104000+03:00;True|2023-09-29T07:51:17.9791784+03:00;True|2023-09-28T20:15:20.3195091+03:00;True|2023-09-28T19:57:17.1500698+03:00;True|2023-09-28T19:48:42.7145663+03:00;True|2023-09-28T19:40:44.0341391+03:00;True|2023-09-28T19:17:21.8296062+03:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="SqlCon">
+      <Value>Server=tcp:bookrevdbserver.database.windows.net,1433%3bInitial Catalog=bookrevdb%3bPersist Security Info=False%3bUser ID=Ahmed%3bPassword=01142520292Aa%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

@@ -1,128 +1,166 @@
-﻿@*@model IEnumerable<BookRev.Models.Book>*@
-  @model IEnumerable<Book>
+﻿@model IEnumerable<Book>
+
 @{
     ViewData["Title"] = "Books";
-    }
-    
-    <h2>
+}
+
+<h2>
     <i class="bi bi-book-half"></i>
-        Books
-    </h2>
-    <hr />
-    <p>
+    Books
+</h2>
+<hr />
 <p>
-
-    <a class="btn btn-primary" asp-action="Create"><i class="bi bi-plus-square"></i> Create New</a>
+    <a class="btn btn-primary" asp-action="Create">
+        <i class="bi bi-plus-square"></i> Create New
+    </a>
 </p>
-
-
 
 <div class="mt-4">
     @if (!Model.Any())
     {
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <i class="bi bi-exclamation-octagon"></i>
-             No Book Found.....!
+            No Book Found.....!
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
     else
     {
-        <div class="row" >
-               @* @foreach (var book in Model)
-                {
-                    <div class="col-12">
-                    <div class="card mb-2" style="max-width: 540px;">
+        <div class="row">
+            @foreach (var book in Model)
+            {
+                <div class="col-12">
+                    <div class="card mb-3">
                         <div class="row no-gutters">
-                            <div class="col-md-4" style="background-image: url(data:image\/*;base64,@(Convert.ToBase64String(Book.Poster)))"> </div>
+                            <div class="col-md-2 poster" style="background-image: url('/images/@book.Image')">
+                            </div>
                             <div class="col-md-10">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
+                                <div class="card-body d-flex flex-column justify-content-between h-100">
+                                    @{ bool ContainsArabic(string text)
+                                        {
+                                            foreach (char c in text)
+                                            {
+                                                if (c >= 0x0600 && c <= 0x06FF)
+                                                {
+                                                    return true;
+                                                }
+                                                else if (c >= 0x0750 && c <= 0x077F)
+                                                {
+                                                    return true;
+                                                }
+                                                else if (c >= 0xFB50 && c <= 0xFDFF)
+                                                {
+                                                    return true;
+                                                }
+                                                else if (c >= 0xFE70 && c <= 0xFEFF)
+                                                {
+                                                    return true;
+                                                }
+                                            }
+                                            return false;
+                                        }
+                                    }
+                                    <div>
+                                        <h5 class="card-title">@book.Title (@book.Year)</h5>
+                                        <p class="card-text text-justify" style="direction: @(ContainsArabic(book.Description) ? "rtl" : "ltr")">
+                                            @(book.Description.Length > 500 ? $"{book.Description.Substring(0, 500)}..." : book.Description)
+                                        </p>
+                                    </div>
+                                    @* <div>
+                                        <h5 class="card-title">@book.Title (@book.Year)</h5>
+                                        <p class="card-text text-justify">@(book.Description.Length > 500 ? $"{book.Description.Substring(0, 500)}..." : book.Description) </p>
+                                    </div>*@
+                                   <div class="d-flex justify-content-between">
+                                        <p class="card-text mb-0 mt-2">
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <small class="text-muted">@book.Rate.ToString("0.0")</small>
+                                        </p>
+                                        <div>
+                                            <a asp-action="Details" asp-route-id="@book.Id" class="btn btn-outline-secondary">
+                                                <i class="bi bi-book"></i>
+
+
+                                            Details
+                                            </a>
+                                            <a asp-action="Edit" asp-route-id="@book.Id" class="btn btn-outline-primary">
+                                                <i class="bi bi-pencil-square"></i>
+                                                Edit
+                                            </a>
+                                            <a href="javascript:;" class="btn btn-danger js-delete" data-id="@book.Id">
+                                                <i class="bi bi-trash"></i>
+
+
+                                                Delete
+                                            </a>
+                                        </div>
+
+                                   </div>
+
+                                    </div>
                             </div>
                         </div>
                     </div>
-                    </div>*@
-                }
-
+                </div>
+            }
         </div>
     }
-
 </div>
-    
 
 
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Year)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Poster)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AuthorId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PublisherId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Poster)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublisherId)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+@section scripts{
+    <script>
+        $(document).ready(function(){
+            $('.js-delete').on('click', function(){
+                var btn =$(this);
+                
+                bootbox.confirm({
+                    message: 'Are You Sure You Delete This Book.Rev...?',
+                    buttons: {
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-danger'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-outline-secondary'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: '/books/delete/' + btn.data('id'),
+                                success: function () {
+                                    var bookConatainer = btn.parents('.col-12');
+                                    bookConatainer.addClass('animate__animated animate__zoomOutDown');
+
+                                    setTimeout(function (){
+                                    bookConatainer.remove();
+                                    }, 1000);
+
+                                    toastr.success('Book Deleted...');
+                                },
+                                error: function () {
+                                    toastr.error('Something Wrong..!');
+                                }
+
+                            });
+                        }
+                    }
+                });
+                
+            } );
+        });
+    </script>
 }
-    </tbody>
-</table>*@
+
+        @*<div class="row row-cols-1 row-cols-md-6">
+    <div class="col mb-4">
+    <div class="card">
+    <img src="~/images/@book.Image" class="card-img-top" width="100%" height="100%" alt="...">
+    <div class="card-body">
+    <h5 class="card-title">@book.Title</h5>
+    <p class="card-text">@book.Description</p>
+    </div>
+    </div>
+    </div>
+    </div>*@

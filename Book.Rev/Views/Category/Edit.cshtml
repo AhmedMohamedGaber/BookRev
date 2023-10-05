@@ -1,0 +1,45 @@
+﻿@model BookRev.Models.Category
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4 style="color:dimgray">Category</h4>
+<hr />
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            
+            <div> <br> </div>
+            <div class="form-group">
+                @*<input type="submit" value="Save" class="btn btn-success mb-2" />*@
+                <button type="submit" class="btn btn-success mb-2">
+                    <i class="bi bi-recycle"></i> Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-outline-dark"><i class="bi bi-arrow-left-circle-fill"></i>Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

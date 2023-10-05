@@ -1,0 +1,73 @@
+﻿@model BookRev.Models.Author
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+<h4 style="color:dimgray">Author</h4>
+
+<div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="column">
+                <div class="col-md-4">
+                    <div class="detail-item">
+                        <span class="label">ID:</span>
+                        <span class="value">@Html.DisplayFor(model => model.Id)</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="detail-item">
+                        <span class="label">Name:</span>
+                        <span class="value">@Html.DisplayFor(model => model.Name)</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="detail-item">
+                        <span class="label">Address:</span>
+                        <span class="value">@Html.DisplayFor(model => model.Address)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="col-md-4">
+                    <div class="detail-item">
+                        <span class="label">PhoneNumber:</span>
+                        <span class="value">@Html.DisplayFor(model => model.PhoneNumber)</span>
+                    </div>
+                </div>
+               
+            </div>
+           
+        </div>
+    </div>
+</div>
+<div>
+    @* @Html.ActionLink("Edit", "Edit", new { id=Model.Id })*@ |
+    <a asp-action="Index" class="btn btn-outline-dark"><i class="bi bi-arrow-left-circle-fill"></i>Back to List</a>
+</div>
+
+<style>
+    .card {
+        border: 1px solid #00FFFF;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .detail-item {
+        margin-bottom: 10px;
+    }
+
+    .label {
+        font-weight: bold;
+        color: black;
+    }
+
+    .value {
+        margin-left: 10px;
+        color: #333;
+    }
+</style>
