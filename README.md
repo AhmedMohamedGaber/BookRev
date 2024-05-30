@@ -6,5 +6,5 @@
 
 # Check my website using these links   
 
-#https://bookrevweb.azurewebsites.net/
-#http://ahmedmohamed2023-001-site1.ftempurl.com/Account/Login?ReturnUrl=%2F
+#http://bookrev.runasp.net/
+
