@@ -1,10 +1,20 @@
-# BookRev Using ASP.NET CORE MVC
+# BookRev — Book Review Web App
 
+A web application for reviewing books, built with ASP.NET Core MVC.
 
-#Hello Everybody This is my WebApp  (BookRev) ------> BookReview 
-# I used Asp.net core MVC to build this web app, C# OOP, DataStrutre, DesginPattern, Sql server, Linq, Entity Framework, HTML, CSS, JavaScript, And some bootstrap templates
+**[🔗 Live demo](https://bookrev.runasp.net/)**
 
-# Check my website using these links   
+## Overview
 
-#https://bookrev.runasp.net/
+BookRev lets users browse books and share their reviews. It is built on ASP.NET Core MVC with a SQL Server database, using clean OOP design, data structures, and design patterns.
 
+## Tech stack
+
+- **Backend:** ASP.NET Core MVC, C#
+- **Database:** Microsoft SQL Server, Entity Framework, LINQ
+- **Frontend:** HTML, CSS, JavaScript, Bootstrap
+
+## Links
+
+- Live: https://bookrev.runasp.net/
+- Author: [Ahmed Mohamed Gaber](https://github.com/AhmedMohamedGaber)
